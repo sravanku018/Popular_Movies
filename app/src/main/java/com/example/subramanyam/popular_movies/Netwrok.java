@@ -18,6 +18,13 @@ import java.net.URL;
  */
 
 public class Netwrok  extends AsyncTask<String,Void,String>{
+
+    public Netwrok(){
+
+    }
+
+
+
     @Override
     protected String doInBackground(String... strings) {
         final String REQUEST_METHOD="GET";
@@ -71,6 +78,7 @@ public class Netwrok  extends AsyncTask<String,Void,String>{
 
 
 
+
         }
 
 
@@ -114,20 +122,18 @@ public class Netwrok  extends AsyncTask<String,Void,String>{
 
                     }
                     MainActivity.images.add(movie1);
-                   MainActivity.imageAdapter.notifyDataSetChanged();
+                  // MainActivity.imageAdapter.notifyDataSetChanged();
 
 
                     String posterUrl = "http://image.tmdb.org/t/p/w185/" +movie.getString("poster_path");
                     MainActivity.movieUrl.add(posterUrl);
+                    MainActivity.imageAdapter.notifyDataSetChanged();
                     Log.i("s",posterUrl);
 
 
-
-
-
-
-
                 }
+
+
 
 
             } catch (JSONException e) {
@@ -146,4 +152,5 @@ public class Netwrok  extends AsyncTask<String,Void,String>{
 
 
     }
+
 }

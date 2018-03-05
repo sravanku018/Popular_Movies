@@ -10,69 +10,51 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
-/**
- * Created by subramanyam on 19-02-2018.
- */
+public class ImageAdapter extends BaseAdapter {
+    private Context mContext;
 
+    public ImageAdapter(Context c) {
+        mContext = c;
+    }
 
-    public class ImageAdapter extends BaseAdapter {
-        private LayoutInflater inflater;
-        private Context mContext;
-        private GridView gridView;
-
-        
-
-        public ImageAdapter(Context c) {
-            mContext = c;
-        }
-
-
-    @Override
     public int getCount() {
         return MainActivity.images.size();
     }
 
     public Object getItem(int position) {
-            return null;
-        }
-
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        // create a new ImageView for each item referenced by the Adapter
-        public View getView(int position, View convertView, ViewGroup parent) {
-            ImageView imageView;
-
-
-            if (convertView == null) {
-                // if it's not recycled, initialize some attributes
-
-
-
-                LayoutInflater layoutInflater= (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView=inflater.inflate(R.layout.moviegrid,null);
-
-
-
-
-                imageView= new ImageView(mContext);
-
-
-
-            } else
-            {
-
-                imageView = (ImageView) convertView;
-
-            }
-
-
-          Picasso.with(mContext).load(MainActivity.movieUrl.get(position)).fit().resize(300,200).centerInside().error(R.drawable.ic_launcher_background).into(imageView);
-
-
-
-            return imageView;
-        }
-
+        return null;
     }
+
+    public long getItemId(int position) {
+        return 0;
+    }
+
+    // create a new ImageView for each item referenced by the Adapter
+    public View getView(int position, View convertView, ViewGroup parent) {
+        ImageView imageView;
+
+        if (convertView == null) {
+            LayoutInflater layoutInflater= (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            // if it's not recycled, initialize some attributes
+            imageView = new ImageView(mContext);
+            imageView.setLayoutParams(new GridView.LayoutParams(300, 400));
+            imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+            imageView.setPadding(10, 10, 10, 10);
+
+
+           
+        } else {
+            imageView = (ImageView) convertView;
+        }
+
+       Picasso.with(mContext).load(MainActivity.movieUrl.get(position)).fit().centerCrop().error(R.drawable.ic_launcher_background).into(imageView);
+
+        return imageView;
+    }
+
+    // references to our images
+
+    };
+
+
+
