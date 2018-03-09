@@ -14,7 +14,7 @@ public class MovieData implements Parcelable {
     String bacground_path;
     String overview;
     String poster_path;
-    String vote_average;
+    String  vote_average;
 
 
     public MovieData() {
@@ -93,7 +93,7 @@ public class MovieData implements Parcelable {
     }
 
     public void setVote_average(String vote_average) {
-        this.vote_average = this.vote_average;
+        this.vote_average = vote_average;
     }
 
     @Override
@@ -110,7 +110,7 @@ public class MovieData implements Parcelable {
         parcel.writeString(this.bacground_path);
         parcel.writeString(this.overview);
         parcel.writeString(this.poster_path);
-        parcel.writeString(this.vote_average);
+        parcel.writeString(this.getVote_average());
 
     }
 

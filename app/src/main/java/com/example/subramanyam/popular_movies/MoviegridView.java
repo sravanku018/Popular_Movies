@@ -1,49 +1,41 @@
 package com.example.subramanyam.popular_movies;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-public class MoviegridView extends Activity {
+public class MoviegridView extends AppCompatActivity {
     GridView gridView;
     ImageView imageView;
-    ImageAdapter imageAdapter;
+ static    public  ImageAdapter imageAdapter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_moviegrid_view);
-
-
-       gridView =   findViewById(R.id.gridview);
-       gridView.setAdapter(new ImageAdapter(this));
-       gridView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-           @Override
-           public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-               Toast.makeText(MoviegridView.this,"hi", Toast.LENGTH_SHORT).show();
-           }
-
-           @Override
-           public void onNothingSelected(AdapterView<?> adapterView) {
-
-           }
-       });
+        imageView=(ImageView) findViewById(R.id.movieImages);
+       imageAdapter =  new ImageAdapter(this);
 
 
 
+       gridView =  (GridView) findViewById(R.id.gridview);
+       gridView.setAdapter(imageAdapter);
 
 
-    }
+   }
 
-    @Override
+
+
+  /*  @Override
     public void onBackPressed() {
 
-        super.onBackPressed();
-    }
+        Intent startMain = new Intent(Intent.ACTION_MAIN);
+        startMain.addCategory(Intent.CATEGORY_HOME);
+
+        startActivity(startMain);
+
+    }*/
 }
 

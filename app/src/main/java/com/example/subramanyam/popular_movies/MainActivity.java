@@ -2,30 +2,34 @@ package com.example.subramanyam.popular_movies;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.Uri;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
-import android.widget.GridView;
-import android.widget.ImageView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 
 public class MainActivity extends AppCompatActivity{
 
-private LayoutInflater layoutInflater;
+
+ static public ImageAdapter imageAdapter;
  static public ArrayList<MovieData> images;
  static  public ArrayList<String> movieUrl;
-  static public   ImageAdapter imageAdapter;
-     GridView gridView;
-     ImageView imageView;
-    MovieData movieData;
-   static public SharedPreferences sharedPreferences;
-   static  public Context context;
+    static public MovieData movieData;
+
+
+
+
+
+
+
+
+
 
 
 
@@ -35,27 +39,17 @@ private LayoutInflater layoutInflater;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         movieData=new MovieData();
-     //   imageView=(ImageView) findViewById(R.id.movieImages);
-        imageAdapter=new ImageAdapter(this);
-        Intent intent=new Intent(getApplicationContext(),MoviegridView.class);
-
-        startActivity(intent);
-
-
-
-
-
-
-
-       images = new ArrayList<MovieData>();
+        images = new ArrayList<MovieData>();
         movieUrl = new ArrayList<String>();
-        movieData=new MovieData();
+
+
+      //  Intent intent=new Intent(this,MoviegridView.class);
+       // startActivity(intent);
+
+        //networkConnected();
 
 
 
-
-
-        networkConnected();
 
 
 
@@ -63,26 +57,22 @@ private LayoutInflater layoutInflater;
 
 
 
-        @Override
-    protected void onResume() {
-        super.onResume();
-    }
 
-    public void networkConnected()
+
+
+ /*   public void networkConnected()
     {
         Netwrok netwrok;
 
-        Uri.Builder builder=new Uri.Builder();
+      Uri.Builder builder=new Uri.Builder();
         builder.scheme("http")
                 .authority("api.themoviedb.org")
                 .path("/3/movie/popular")
                 .appendQueryParameter("api_key","")
                 .build();
 
-
-
-
        String Url=builder.toString();
+
         netwrok = new Netwrok();
 
         try {
@@ -94,19 +84,68 @@ private LayoutInflater layoutInflater;
         }
 
 
+
+
         if(netwrok != null)
         {
             Toast.makeText(this, "network connected", Toast.LENGTH_SHORT).show();
         }
-    }
 
+            } */
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater menuInflater=getMenuInflater();
+        menuInflater.inflate(R.menu.main_menu,menu);
+        return true;
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        isNetworkAvailable();
+        Toast.makeText(this, "network connected", Toast.LENGTH_SHORT).show();
+        Netwrok netwrok=new Netwrok();
+
+        if(item.getItemId() == R.id.popular)
+
+
+        {
+            netwrok.execute("http://api.themoviedb.org/3/movie/popular?api_key=");
+
+        }
+        else
+        {
+            netwrok.execute("http://api.themoviedb.org/3/movie/top_rated?api_key=");
+
+        }
+
+        Intent intent=new Intent(this,MoviegridView.class);
+        startActivity(intent);
+
+        return  true;
+    }
+
+
+
+
+
+
+
+    public void isNetworkAvailable() {
+        ConnectivityManager cm = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+        // if no network is available networkInfo will be null
+        // otherwise check if we are connected
+        if (networkInfo != null && networkInfo.isConnected()) {
+        }
 
 
     }
+
+
 
 
 

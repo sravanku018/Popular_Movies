@@ -6,17 +6,11 @@
     android:layout_height="match_parent"
     tools:context="com.example.subramanyam.popular_movies.MainActivity">
 
-
-
-
-
-
-
-
-
-
-
-
+    <ImageView
+        android:id="@+id/movieImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/todo" />
 
 
 </LinearLayout>

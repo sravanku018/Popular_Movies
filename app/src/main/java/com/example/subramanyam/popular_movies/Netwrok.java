@@ -17,11 +17,7 @@ import java.net.URL;
  * Created by subramanyam on 14-02-2018.
  */
 
-public class Netwrok  extends AsyncTask<String,Void,String>{
-
-    public Netwrok(){
-
-    }
+ public  class Netwrok  extends AsyncTask<String,Void,String>{
 
 
 
@@ -86,6 +82,11 @@ public class Netwrok  extends AsyncTask<String,Void,String>{
     protected void onPostExecute(String results ) {
 
 
+        MainActivity.images.clear();
+        MainActivity.movieUrl.clear();
+
+
+
         if (results != null) {
             try {
                 JSONObject movies = new JSONObject(results);
@@ -108,27 +109,30 @@ public class Netwrok  extends AsyncTask<String,Void,String>{
                     movie1.setOverview(movie.getString("overview"));
 
                     movie1.setPoster_path(movie.getString("poster_path"));
-                    movie1.setVote_average(movie.getString("vote_average"));
+                    movie1.setVote_average( movie.getString("vote_average"));
+                    movie1.setRelease_date(movie.getString("release_date"));
 
 
-                    if (movie.getString("poster_path") == null) {
 
-                        String posterUrl = "http://image.tmdb.org/t/p/w185/ " + movie.getString("poster_path");
+
+                        String posterUrl = "http://image.tmdb.org/t/p/w185/" + movie.getString("poster_path");
 
                         MainActivity.movieUrl.add(posterUrl);
+
+                MoviegridView.imageAdapter.notifyDataSetChanged();
+
 
                         Log.i("s", posterUrl);
 
 
-                    }
+
                     MainActivity.images.add(movie1);
-                  // MainActivity.imageAdapter.notifyDataSetChanged();
 
 
-                    String posterUrl = "http://image.tmdb.org/t/p/w185/" +movie.getString("poster_path");
-                    MainActivity.movieUrl.add(posterUrl);
-                    MainActivity.imageAdapter.notifyDataSetChanged();
-                    Log.i("s",posterUrl);
+
+
+
+
 
 
                 }
